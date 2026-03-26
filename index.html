@@ -435,6 +435,36 @@
             line-height: 1;
         }
 
+        /* Pulse ring radiating from each pin */
+        .day-marker::before {
+            content: '';
+            position: absolute;
+            top: 6px;
+            left: 9px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px solid rgba(196,169,110,0.6);
+            animation: pinPulse 2.4s ease-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes pinPulse {
+            0%   { transform: scale(1);   opacity: 0.7; }
+            70%  { transform: scale(2.2); opacity: 0;   }
+            100% { transform: scale(2.2); opacity: 0;   }
+        }
+
+        /* Stagger each pin's pulse so they don't all fire together */
+        .day-1::before { animation-delay: 0s;    }
+        .day-2::before { animation-delay: 0.48s; }
+        .day-3::before { animation-delay: 0.96s; }
+        .day-4::before { animation-delay: 1.44s; }
+        .day-5::before { animation-delay: 1.92s; }
+
+        /* Stop pulsing once the user has tapped (active state) */
+        .day-marker:active::before { animation: none; }
+
         /*
          * Pins tucked into the valley, flowing top → bottom.
          * Shifted down so they sit in the open meadow,
@@ -945,6 +975,14 @@
             display: block;
             font-size: 0.95rem;
             color: var(--rust);
+        }
+
+        .call-label {
+            display: block;
+            font-size: 0.72rem;
+            color: rgba(139,58,30,0.6);
+            margin-top: 0.25rem;
+            letter-spacing: 0.04em;
         }
 
         .contact-item:active {
@@ -1687,10 +1725,10 @@
         <div class="emergency-box">
             <h3>🚨 Emergency Contacts</h3>
             <div class="contact-grid">
-                <a class="contact-item" href="tel:911">📞 Emergency<br><strong>911</strong></a>
-                <a class="contact-item" href="tel:3073447381">📞 Park Dispatch<br><strong>307-344-7381</strong></a>
-                <a class="contact-item" href="tel:3073447311">📞 Lodging<br><strong>307-344-7311</strong></a>
-                <a class="contact-item" href="tel:3073442117">📞 Roads<br><strong>307-344-2117</strong></a>
+                <a class="contact-item" href="tel:911">📞 Emergency<br><strong>911</strong><span class="call-label">Tap to call</span></a>
+                <a class="contact-item" href="tel:3073447381">📞 Park Dispatch<br><strong>307-344-7381</strong><span class="call-label">Tap to call</span></a>
+                <a class="contact-item" href="tel:3073447311">📞 Lodging<br><strong>307-344-7311</strong><span class="call-label">Tap to call</span></a>
+                <a class="contact-item" href="tel:3073442117">📞 Roads<br><strong>307-344-2117</strong><span class="call-label">Tap to call</span></a>
             </div>
         </div>
 
