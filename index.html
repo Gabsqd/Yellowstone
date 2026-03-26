@@ -233,10 +233,11 @@
         .video-close:active { background: rgba(255,255,255,0.25); }
 
         .video-title {
-            font-family: 'Anton', sans-serif;
-            font-size: clamp(1.4rem, 5vw, 2rem);
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: clamp(1.6rem, 5vw, 2.2rem);
             color: var(--sand);
-            letter-spacing: 0.08em;
+            letter-spacing: 0.02em;
             margin-bottom: 1.25rem;
             text-align: center;
         }
@@ -387,38 +388,39 @@
 
         .map-outline { display: none; }
 
-        /* Day pins */
+        /* Day pins — enlarged for confident thumb tapping */
         .day-marker {
             position: absolute;
-            width: 36px;
-            height: 44px;
+            width: 48px;
+            height: 56px;
             transform: translate(-50%, -100%);
             cursor: pointer;
             z-index: 20;
             -webkit-tap-highlight-color: transparent;
         }
 
+        /* Generous invisible tap area around each pin */
         .day-marker::after {
             content: '';
             position: absolute;
-            inset: -8px;
+            inset: -12px;
         }
 
-        /* Teardrop pin shape */
+        /* Teardrop pin shape — bigger */
         .marker-circle {
-            width: 32px;
-            height: 32px;
+            width: 42px;
+            height: 42px;
             border-radius: 50% 50% 50% 0;
             transform: rotate(-45deg);
             display: flex;
             align-items: center;
             justify-content: center;
             background: var(--olive-dk);
-            border: 2px solid var(--sand);
-            box-shadow: 0 3px 10px rgba(0,0,0,0.6);
+            border: 2.5px solid var(--sand);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.7);
             transition: transform 0.2s;
             position: absolute;
-            top: 0; left: 2px;
+            top: 0; left: 3px;
         }
 
         .day-marker:active .marker-circle {
@@ -428,7 +430,7 @@
         .marker-number {
             transform: rotate(45deg);
             font-family: 'Anton', sans-serif;
-            font-size: 1rem;
+            font-size: 1.2rem;
             color: var(--sand);
             line-height: 1;
         }
@@ -858,19 +860,39 @@
         .pack-list { list-style: none; }
 
         .pack-list li {
-            padding: 0.5rem 0 0.5rem 1.5rem;
+            padding: 0.55rem 0 0.55rem 1.5rem;
             position: relative;
             border-bottom: 1px solid rgba(255,255,255,0.05);
             font-size: 0.9rem;
             color: rgba(255,255,255,0.7);
+            cursor: pointer;
+            transition: color 0.2s;
+            -webkit-tap-highlight-color: transparent;
+            user-select: none;
         }
 
         .pack-list li::before {
-            content: '—';
+            content: '○';
             position: absolute;
             left: 0;
+            color: rgba(196,169,110,0.5);
+            font-size: 0.85rem;
+            top: 0.6rem;
+            transition: all 0.2s;
+        }
+
+        .pack-list li.packed {
+            color: rgba(255,255,255,0.3);
+        }
+
+        .pack-list li.packed span {
+            text-decoration: line-through;
+            text-decoration-color: rgba(196,169,110,0.5);
+        }
+
+        .pack-list li.packed::before {
+            content: '✓';
             color: var(--sand);
-            opacity: 0.6;
         }
 
         /* ══════════════════════════════════════════════
@@ -904,14 +926,29 @@
         }
 
         .contact-item {
+            display: block;
+            text-decoration: none;
             font-family: 'DM Sans', sans-serif;
             font-weight: 500;
             font-size: 0.82rem;
-            padding: 0.65rem 0.75rem;
-            background: rgba(255,255,255,0.05);
-            border-radius: 4px;
-            line-height: 1.4;
-            color: rgba(255,255,255,0.75);
+            padding: 0.75rem;
+            background: white;
+            border-radius: 6px;
+            line-height: 1.5;
+            color: var(--rust);
+            border: 1px solid rgba(139,58,30,0.2);
+            transition: background 0.15s;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .contact-item strong {
+            display: block;
+            font-size: 0.95rem;
+            color: var(--rust);
+        }
+
+        .contact-item:active {
+            background: #ffe8e0;
         }
 
         /* 3-column safety grid */
@@ -973,9 +1010,47 @@
         .safety-card.info   .safety-list li::before { color: var(--mist); }
         .safety-card.tip    .safety-list li::before { color: var(--sand); }
 
-        /* ══════════════════════════════════════════════
-           SPOTTER GAME
-        ══════════════════════════════════════════════ */
+        /* ─── SPOTTER LOADING SKELETON ───────────────────── */
+        .spotter-skeleton {
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .skeleton-block {
+            background: linear-gradient(
+                90deg,
+                rgba(255,255,255,0.04) 0%,
+                rgba(255,255,255,0.1) 50%,
+                rgba(255,255,255,0.04) 100%
+            );
+            background-size: 200% 100%;
+            animation: shimmer 1.4s ease-in-out infinite;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        @keyframes shimmer {
+            0%   { background-position: 200% 0; }
+            100% { background-position: -200% 0; }
+        }
+
+        .skeleton-rank  { width: 18px; height: 22px; }
+        .skeleton-icon  { width: 28px; height: 28px; border-radius: 50%; }
+        .skeleton-text  { flex: 1; height: 14px; }
+        .skeleton-btn   { width: 70px; height: 30px; border-radius: 3px; }
+
+        /* ─── SPOTTER CONNECTING STATE ───────────────────── */
+        .spotter-connecting {
+            padding: 1.5rem;
+            text-align: center;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.35);
+            font-style: italic;
+        }
         #spotter { scroll-margin-top: 1rem; }
 
         .spotter-header-card {
@@ -1554,7 +1629,7 @@
 <section class="page-section bg-olive" id="pack">
     <div class="section-inner">
         <div class="section-header">
-            <div class="section-label">Preparation</div>
+            <div class="section-label">Preparation · check items off as you pack</div>
             <h2 class="section-title">WHAT TO<br>PACK</h2>
             <div class="rule"></div>
         </div>
@@ -1562,40 +1637,41 @@
             <div class="pack-card">
                 <h3>Clothing</h3>
                 <p class="temp-note">Layer up — 35–75°F range</p>
-                <ul class="pack-list">
-                    <li>Warm jacket</li>
-                    <li>Light fleece</li>
-                    <li>T-shirts & long-sleeves</li>
-                    <li>Long pants & shorts</li>
-                    <li>Hiking shoes</li>
-                    <li>Hat & sunglasses</li>
-                    <li>Rain jacket</li>
+                <ul class="pack-list" id="packClothing">
+                    <li data-pack="c0"><span>Warm jacket</span></li>
+                    <li data-pack="c1"><span>Light fleece</span></li>
+                    <li data-pack="c2"><span>T-shirts & long-sleeves</span></li>
+                    <li data-pack="c3"><span>Long pants & shorts</span></li>
+                    <li data-pack="c4"><span>Hiking shoes</span></li>
+                    <li data-pack="c5"><span>Hat & sunglasses</span></li>
+                    <li data-pack="c6"><span>Rain jacket</span></li>
                 </ul>
             </div>
             <div class="pack-card">
                 <h3>Gear</h3>
-                <ul class="pack-list">
-                    <li>Sunscreen</li>
-                    <li>Water bottles</li>
-                    <li>Binoculars</li>
-                    <li>Camera + chargers</li>
-                    <li>Backpack</li>
-                    <li>Cooler for van</li>
-                    <li>First aid kit</li>
-                    <li>Headlamp</li>
-                    <li>Phone charger</li>
+                <ul class="pack-list" id="packGear">
+                    <li data-pack="g0"><span>Sunscreen</span></li>
+                    <li data-pack="g1"><span>Water bottles</span></li>
+                    <li data-pack="g2"><span>Binoculars</span></li>
+                    <li data-pack="g3"><span>Camera + chargers</span></li>
+                    <li data-pack="g4"><span>Backpack</span></li>
+                    <li data-pack="g5"><span>Cooler for van</span></li>
+                    <li data-pack="g6"><span>First aid kit</span></li>
+                    <li data-pack="g7"><span>Headlamp</span></li>
+                    <li data-pack="g8"><span>Phone charger</span></li>
                 </ul>
             </div>
             <div class="pack-card">
                 <h3>Optional</h3>
-                <ul class="pack-list">
-                    <li>Bear spray</li>
-                    <li>Picnic blanket</li>
-                    <li>Playing cards</li>
-                    <li>Birthday decor</li>
+                <ul class="pack-list" id="packOptional">
+                    <li data-pack="o0"><span>Bear spray</span></li>
+                    <li data-pack="o1"><span>Picnic blanket</span></li>
+                    <li data-pack="o2"><span>Playing cards</span></li>
+                    <li data-pack="o3"><span>Birthday decor</span></li>
                 </ul>
             </div>
         </div>
+        <button class="spotter-reset" style="max-width:340px;margin:1rem auto 0;display:block;" onclick="resetPack()">↺ UNCHECK ALL</button>
     </div>
 </section>
 
@@ -1611,10 +1687,10 @@
         <div class="emergency-box">
             <h3>🚨 Emergency Contacts</h3>
             <div class="contact-grid">
-                <div class="contact-item">📞 Emergency<br>911 / 307-344-7381</div>
-                <div class="contact-item">📞 Lodging<br>307-344-7311</div>
-                <div class="contact-item">📞 Park Info<br>307-344-7381</div>
-                <div class="contact-item">📞 Roads<br>307-344-2117</div>
+                <a class="contact-item" href="tel:911">📞 Emergency<br><strong>911</strong></a>
+                <a class="contact-item" href="tel:3073447381">📞 Park Dispatch<br><strong>307-344-7381</strong></a>
+                <a class="contact-item" href="tel:3073447311">📞 Lodging<br><strong>307-344-7311</strong></a>
+                <a class="contact-item" href="tel:3073442117">📞 Roads<br><strong>307-344-2117</strong></a>
             </div>
         </div>
 
@@ -2048,7 +2124,21 @@ let pendingSpotterIndex = null;
 let sb = null;               // supabase client
 
 // ─── INIT ────────────────────────────────────────────
+function showSpotterSkeleton() {
+    const list = document.getElementById('spotterList');
+    list.innerHTML = Array.from({ length: 10 }, () => `
+        <div class="spotter-skeleton">
+            <div class="skeleton-block skeleton-rank"></div>
+            <div class="skeleton-block skeleton-icon"></div>
+            <div class="skeleton-block skeleton-text"></div>
+            <div class="skeleton-block skeleton-btn"></div>
+        </div>
+    `).join('');
+    document.getElementById('spotterScorePill').textContent = 'CONNECTING…';
+}
+
 async function initSupabase() {
+    showSpotterSkeleton();
     try {
         const { createClient } = await import(
             'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
@@ -2212,6 +2302,37 @@ initSupabase();
 
 
 
+// ─── PACK CHECKLIST ──────────────────────────────────
+const PACK_KEY = 'pack_v1';
+let packedItems = new Set(JSON.parse(localStorage.getItem(PACK_KEY) || '[]'));
+
+function initPack() {
+    document.querySelectorAll('.pack-list li[data-pack]').forEach(li => {
+        const key = li.dataset.pack;
+        if (packedItems.has(key)) li.classList.add('packed');
+        li.addEventListener('click', () => {
+            li.classList.toggle('packed');
+            if (li.classList.contains('packed')) {
+                packedItems.add(key);
+            } else {
+                packedItems.delete(key);
+            }
+            try {
+                localStorage.setItem(PACK_KEY, JSON.stringify([...packedItems]));
+            } catch(e) {}
+        });
+    });
+}
+
+function resetPack() {
+    if (!confirm('Uncheck all items?')) return;
+    packedItems.clear();
+    try { localStorage.removeItem(PACK_KEY); } catch(e) {}
+    document.querySelectorAll('.pack-list li.packed').forEach(li => li.classList.remove('packed'));
+}
+
+initPack();
+
 // ─── INTERSECTION OBSERVER ────────────────────────────
 const sections = ['home','spotter','eat','pack','safety'];
 const navItems = document.querySelectorAll('.nav-item');
@@ -2230,7 +2351,7 @@ sections.forEach(id => { const el = document.getElementById(id); if (el) observe
 <div class="video-overlay" id="videoOverlay" onclick="closeVideo()">
     <div onclick="event.stopPropagation()">
         <div class="video-close" onclick="closeVideo()">×</div>
-        <div class="video-title"> HAPPY BIRTHDAY </div>
+        <div class="video-title">Happy Birthday</div>
         <video
             class="video-player"
             id="birthdayVideo"
