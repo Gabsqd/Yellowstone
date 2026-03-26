@@ -1825,11 +1825,50 @@ const spotterAnimals = [
       fact:'Trumpeter swans are North America largest native waterfowl with wingspans up to 8 feet. Fewer than 70 survived into the 1930s. Today there are over 46,000.' },
 ];
 
+// ─── SUPABASE CONFIG ─────────────────────────────────
+const SUPABASE_URL      = 'https://ozzdenbwlnykzkdwdqnh.supabase.co';
+const SUPABASE_ANON_KEY = 'sb_publishable_9No9z3IB1oNJT9Deg85O9A_mQn1ZRzt';
+
 // ─── STATE ───────────────────────────────────────────
-const SPOTTER_KEY = 'spotter_v1';
-let spotterData = {};
+let spotterData = {};        // { animalIndex: row }
 let pendingSpotterIndex = null;
-try { spotterData = JSON.parse(localStorage.getItem(SPOTTER_KEY) || '{}'); } catch(e) {}
+let sb = null;               // supabase client
+
+// ─── INIT ────────────────────────────────────────────
+async function initSupabase() {
+    try {
+        const { createClient } = await import(
+            'https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/+esm'
+        );
+        sb = createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+        await loadSightings();
+        subscribeRealtime();
+    } catch (err) {
+        console.error('Supabase init failed, falling back to localStorage:', err);
+        try { spotterData = JSON.parse(localStorage.getItem('spotter_v1') || '{}'); } catch(e) {}
+        renderSpotter();
+    }
+}
+
+async function loadSightings() {
+    const { data, error } = await sb
+        .from('sightings')
+        .select('*')
+        .order('spotted_at', { ascending: true });
+    if (error) { console.error(error); return; }
+    spotterData = {};
+    data.forEach(row => { spotterData[row.animal_index] = row; });
+    renderSpotter();
+}
+
+function subscribeRealtime() {
+    sb.channel('sightings-live')
+        .on('postgres_changes',
+            { event: '*', schema: 'public', table: 'sightings' },
+            () => loadSightings()
+        )
+        .subscribe();
+}
 
 // ─── RENDER: SPOTTER LIST ────────────────────────────
 function renderSpotter() {
@@ -1847,7 +1886,7 @@ function renderSpotter() {
             <div class="spotter-info">
                 <div class="spotter-animal-name">${animal.name}</div>
                 <div class="spotter-animal-desc">${claim
-                    ? '\u{1F464} First spotted by <strong>' + claim.spotter_name + '</strong>'
+                    ? '👤 First spotted by <strong>' + claim.spotter_name + '</strong>'
                     : animal.desc}</div>
             </div>
             <div class="spotter-claim-area">
@@ -1890,18 +1929,35 @@ function closeNameSheet() {
     pendingSpotterIndex = null;
 }
 
-function saveClaim(name) {
+// ─── SAVE / DELETE ───────────────────────────────────
+async function saveClaim(name) {
     if (pendingSpotterIndex === null || !name) return;
     const idx = pendingSpotterIndex;
-    spotterData[idx] = {
+    const row = {
         animal_index: idx,
         animal_name:  spotterAnimals[idx].name,
         spotter_name: name,
         spotted_at:   new Date().toISOString()
     };
-    try { localStorage.setItem(SPOTTER_KEY, JSON.stringify(spotterData)); } catch(e) {}
     closeNameSheet();
+
+    // Optimistic UI
+    spotterData[idx] = row;
     renderSpotter();
+
+    if (!sb) {
+        // localStorage fallback
+        try { localStorage.setItem('spotter_v1', JSON.stringify(spotterData)); } catch(e) {}
+        return;
+    }
+
+    const { error } = await sb.from('sightings').insert(row);
+    if (error) {
+        console.error('Save failed:', error);
+        delete spotterData[idx];
+        renderSpotter();
+        alert('Could not save — check your signal and try again.');
+    }
 }
 
 function quickClaim(name) { saveClaim(name); }
@@ -1910,21 +1966,37 @@ function submitName() {
     if (raw) saveClaim(raw);
 }
 
-function unclaimSpotter(index) {
+async function unclaimSpotter(index) {
     if (!spotterData[index]) return;
+    const backup = spotterData[index];
     delete spotterData[index];
-    try { localStorage.setItem(SPOTTER_KEY, JSON.stringify(spotterData)); } catch(e) {}
     renderSpotter();
+
+    if (!sb) {
+        try { localStorage.setItem('spotter_v1', JSON.stringify(spotterData)); } catch(e) {}
+        return;
+    }
+
+    const { error } = await sb.from('sightings').delete().eq('animal_index', index);
+    if (error) {
+        console.error('Delete failed:', error);
+        spotterData[index] = backup;
+        renderSpotter();
+    }
 }
 
-function resetSpotter() {
-    if (!confirm('Reset all sightings?')) return;
+async function resetSpotter() {
+    if (!confirm('Reset all sightings for everyone?')) return;
+    if (sb) {
+        await sb.from('sightings').delete().gte('id', 0);
+    }
     spotterData = {};
-    try { localStorage.removeItem(SPOTTER_KEY); } catch(e) {}
+    try { localStorage.removeItem('spotter_v1'); } catch(e) {}
     renderSpotter();
 }
 
-renderSpotter();
+initSupabase();
+
 
 
 // ─── INTERSECTION OBSERVER ────────────────────────────
