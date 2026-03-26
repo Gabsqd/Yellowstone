@@ -1,0 +1,1945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Baby Bro's Big 3-0 🦬 Yellowstone Adventure</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Anton&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap');
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --olive:    #4a5a2e;
+            --olive-dk: #323d1f;
+            --olive-md: #5c6e38;
+            --sand:     #c4a96e;
+            --sand-lt:  #d9c28f;
+            --cream:    #f2ead8;
+            --parchment:#e8dfc8;
+            --charcoal: #1e1e14;
+            --rust:     #8b3a1e;
+            --mist:     #b8c4a0;
+            --white:    #f8f4ec;
+            --nav-h:    62px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--olive-dk);
+            color: var(--cream);
+            overflow-x: hidden;
+            padding-bottom: var(--nav-h);
+        }
+
+        /* ── CURVED ACCENT LINE (decorative, reused) ─── */
+        .accent-line {
+            position: absolute;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        /* ══════════════════════════════════════════════
+           BOTTOM NAV
+        ══════════════════════════════════════════════ */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0; left: 0; right: 0;
+            height: var(--nav-h);
+            background: var(--charcoal);
+            border-top: 2px solid var(--sand);
+            display: flex;
+            align-items: stretch;
+            z-index: 900;
+            box-shadow: 0 -4px 24px rgba(0,0,0,0.5);
+        }
+
+        .nav-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            color: rgba(255,255,255,0.4);
+            text-decoration: none;
+            font-family: 'Anton', sans-serif;
+            font-size: 0.55rem;
+            letter-spacing: 0.1em;
+            transition: color 0.2s, background 0.2s;
+            cursor: pointer;
+            border: none;
+            background: transparent;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .nav-item .nav-icon { font-size: 1.3rem; line-height: 1; }
+        .nav-item.active, .nav-item:active {
+            color: var(--sand);
+            background: rgba(255,255,255,0.05);
+        }
+
+        /* ══════════════════════════════════════════════
+           HERO
+        ══════════════════════════════════════════════ */
+        .hero {
+            min-height: 100svh;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background: var(--olive-dk);
+        }
+
+        /* Full-bleed photo fills the whole hero */
+        .hero-photo-main {
+            position: absolute;
+            inset: 0;
+            background-image: url('https://i.imgur.com/J1b8QZi.jpeg');
+            background-size: cover;
+            background-position: center center;
+            z-index: 1;
+        }
+
+        /* Dark olive tint overlay — keeps the photo visible but on-palette */
+        .hero-photo-main::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                160deg,
+                rgba(32,42,18,0.72) 0%,
+                rgba(32,42,18,0.45) 45%,
+                rgba(20,26,12,0.78) 100%
+            );
+        }
+
+        /* curved gold accent line */
+        .hero-curve {
+            position: absolute;
+            top: 10%; right: -10%;
+            width: 80%;
+            height: 70%;
+            z-index: 3;
+            pointer-events: none;
+        }
+
+        .hero-top-bar {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 1.25rem;
+            flex-shrink: 0;
+        }
+
+        .top-bar-label {
+            font-family: 'Anton', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.2em;
+            color: var(--sand);
+            opacity: 0.85;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            padding: 0 1.5rem 1.5rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            padding-top: 0.5rem;
+        }
+
+        /* Top-right "GO WHERE YOU GOTTA GO" block — inspo style */
+        .hero-tagline {
+            align-self: flex-end;
+            text-align: right;
+            margin-bottom: 1.5rem;
+        }
+
+        .hero-tagline-text {
+            font-family: 'Lora', serif;
+            font-style: italic;
+            font-size: clamp(0.85rem, 2.5vw, 1.1rem);
+            color: var(--white);
+            line-height: 1.3;
+            opacity: 0.9;
+        }
+
+        /* Title now sits at the top — no margin-top push */
+        .hero-title-block {
+            padding-bottom: 1rem;
+        }
+
+        .hero-eyebrow {
+            font-family: 'DM Sans', sans-serif;
+            font-size: clamp(0.7rem, 2vw, 0.9rem);
+            letter-spacing: 0.25em;
+            color: var(--sand);
+            text-transform: uppercase;
+            margin-bottom: 0.4rem;
+            font-weight: 300;
+        }
+
+        .hero-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(3.2rem, 14vw, 8rem);
+            color: var(--white);
+            line-height: 0.88;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+        }
+
+        .hero-title span { color: var(--sand); }
+
+        .hero-title-sub {
+            font-family: 'Lora', serif;
+            font-size: clamp(1rem, 3.5vw, 1.5rem);
+            color: var(--mist);
+            font-style: italic;
+            margin-top: 0.4rem;
+            letter-spacing: 0.04em;
+        }
+
+        .hero-dates {
+            font-family: 'DM Sans', sans-serif;
+            font-size: clamp(0.75rem, 2.5vw, 1rem);
+            color: rgba(255,255,255,0.6);
+            letter-spacing: 0.15em;
+            margin-top: 0.35rem;
+            font-weight: 300;
+        }
+
+        .countdown {
+            display: inline-block;
+            background: var(--sand);
+            color: var(--charcoal);
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(0.85rem, 2.5vw, 1rem);
+            letter-spacing: 0.12em;
+            padding: 0.4rem 1.1rem;
+            margin-top: 0.8rem;
+            border-radius: 2px;
+        }
+
+        /* ── MAP — sits in the middle of the photo ── */
+        /* ── MAP — photo card with pins on top ── */
+        .hero-map-container {
+            width: 100%;
+            max-width: 340px;
+            margin: 1rem auto 0;
+            z-index: 5;
+            position: relative;
+        }
+
+        .map-label {
+            font-family: 'Anton', sans-serif;
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: var(--sand);
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+            opacity: 0.8;
+        }
+
+        /* The actual photo-map card */
+        .map-photo-card {
+            position: relative;
+            width: 100%;
+            border-radius: 8px;
+            overflow: hidden;
+            border: 2px solid rgba(196,169,110,0.4);
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+        }
+
+        /* Yellowstone valley crop — deep into the valley floor where mountains meet sky */
+        .map-photo-card img.map-bg {
+            width: 100%;
+            display: block;
+            height: 400px;
+            object-fit: cover;
+            object-position: center 92%;
+            filter: saturate(0.9) brightness(0.72);
+        }
+
+        /* light topo-map style overlay */
+        .map-photo-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(
+                180deg,
+                rgba(32,42,18,0.25) 0%,
+                transparent 30%,
+                transparent 70%,
+                rgba(20,26,12,0.5) 100%
+            );
+            pointer-events: none;
+        }
+
+        /* "YELLOWSTONE" label on the map */
+        .map-park-label {
+            position: absolute;
+            bottom: 8px;
+            right: 10px;
+            font-family: 'Anton', sans-serif;
+            font-size: 0.6rem;
+            letter-spacing: 0.25em;
+            color: rgba(255,255,255,0.45);
+            text-transform: uppercase;
+            z-index: 20;
+        }
+
+        /* Route line sits on top of photo */
+        .map-route-svg {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 15;
+        }
+
+        .map-outline { display: none; }
+
+        /* Day pins */
+        .day-marker {
+            position: absolute;
+            width: 36px;
+            height: 44px;
+            transform: translate(-50%, -100%);
+            cursor: pointer;
+            z-index: 20;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .day-marker::after {
+            content: '';
+            position: absolute;
+            inset: -8px;
+        }
+
+        /* Teardrop pin shape */
+        .marker-circle {
+            width: 32px;
+            height: 32px;
+            border-radius: 50% 50% 50% 0;
+            transform: rotate(-45deg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--olive-dk);
+            border: 2px solid var(--sand);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.6);
+            transition: transform 0.2s;
+            position: absolute;
+            top: 0; left: 2px;
+        }
+
+        .day-marker:active .marker-circle {
+            transform: rotate(-45deg) scale(1.2);
+        }
+
+        .marker-number {
+            transform: rotate(45deg);
+            font-family: 'Anton', sans-serif;
+            font-size: 1rem;
+            color: var(--sand);
+            line-height: 1;
+        }
+
+        /*
+         * Pin 1 sits on the ridgeline where mountains meet valley floor.
+         * Each subsequent pin steps down through the open valley.
+         */
+        .day-1 { top: 32%; left: 38%; }
+        .day-2 { top: 46%; left: 62%; }
+        .day-3 { top: 60%; left: 35%; }
+        .day-3 .marker-circle { border-color: #e8c464; background: rgba(30,42,20,0.95); }
+        .day-3 .marker-number { color: #e8c464; }
+        .day-4 { top: 74%; left: 60%; }
+        .day-5 { top: 87%; left: 48%; }
+
+        .tap-hint {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.68rem;
+            color: rgba(196,169,110,0.6);
+            letter-spacing: 0.1em;
+            text-align: center;
+            margin-top: 0.5rem;
+            font-weight: 300;
+            text-transform: uppercase;
+        }
+
+        /* ══════════════════════════════════════════════
+           SECTION WRAPPER — alternating backgrounds
+        ══════════════════════════════════════════════ */
+        .page-section {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page-section.bg-olive   { background: var(--olive-dk); }
+        .page-section.bg-dark    { background: var(--charcoal); }
+        .page-section.bg-sand    { background: var(--olive-md); }
+
+        .section-inner {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 3.5rem 1.25rem;
+        }
+
+        /* Section title treatment */
+        .section-label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.25em;
+            color: var(--sand);
+            text-transform: uppercase;
+            font-weight: 300;
+            margin-bottom: 0.4rem;
+        }
+
+        .section-title {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(2.8rem, 10vw, 5rem);
+            color: var(--white);
+            letter-spacing: 0.04em;
+            line-height: 0.9;
+            text-transform: uppercase;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title.sand { color: var(--sand); }
+
+        .section-header { margin-bottom: 2.5rem; }
+        .section-header p {
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.55);
+            margin-top: 0.6rem;
+            max-width: 380px;
+            line-height: 1.6;
+        }
+
+        .sub-heading {
+            font-family: 'Anton', sans-serif;
+            font-size: clamp(1.4rem, 5vw, 2rem);
+            color: var(--sand);
+            margin: 2.5rem 0 1.2rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+        }
+
+        /* Horizontal rule accent */
+        .rule {
+            width: 48px;
+            height: 2px;
+            background: var(--sand);
+            margin: 0.8rem 0 0;
+            border-radius: 1px;
+        }
+
+        /* ══════════════════════════════════════════════
+           MODAL (day sheet)
+        ══════════════════════════════════════════════ */
+        .modal-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 950;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .modal-overlay.active { display: flex; }
+
+        .modal-card {
+            background: var(--olive-dk);
+            border-top: 3px solid var(--sand);
+            width: 100%;
+            max-width: 680px;
+            max-height: 88svh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 20px 20px 0 0;
+            box-shadow: 0 -8px 40px rgba(0,0,0,0.6);
+            transform: translateY(100%);
+            transition: transform 0.35s cubic-bezier(0.32, 0.72, 0, 1);
+        }
+
+        .modal-overlay.active .modal-card { transform: translateY(0); }
+
+        .modal-handle {
+            width: 36px; height: 3px;
+            background: rgba(255,255,255,0.2);
+            border-radius: 2px;
+            margin: 12px auto 0;
+        }
+
+        .modal-header {
+            padding: 1.2rem 1.5rem 1.2rem;
+            border-bottom: 1px solid rgba(196,169,110,0.25);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 0.9rem; right: 1rem;
+            width: 38px; height: 38px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.08);
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 1.3rem;
+            color: var(--cream);
+            transition: background 0.2s;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        .modal-close:active { background: rgba(255,255,255,0.15); }
+
+        .modal-day-badge {
+            width: 58px; height: 58px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Anton', sans-serif;
+            font-size: 2.2rem;
+            color: var(--charcoal);
+            background: var(--sand);
+            flex-shrink: 0;
+        }
+
+        .modal-meta { flex: 1; min-width: 0; padding-right: 2.5rem; }
+
+        .modal-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.3rem;
+            color: var(--white);
+            letter-spacing: 0.04em;
+            line-height: 1.1;
+        }
+
+        .modal-date {
+            font-family: 'DM Sans', sans-serif;
+            color: var(--sand);
+            font-size: 0.85rem;
+            margin-top: 0.2rem;
+            font-weight: 300;
+            letter-spacing: 0.06em;
+        }
+
+        .badge-special {
+            display: inline-block;
+            background: var(--sand);
+            color: var(--charcoal);
+            padding: 0.15rem 0.6rem;
+            border-radius: 3px;
+            font-family: 'Anton', sans-serif;
+            font-size: 0.7rem;
+            letter-spacing: 0.08em;
+            margin-top: 0.25rem;
+        }
+
+        .modal-content { padding: 1.5rem; }
+
+        .time-block {
+            margin-bottom: 1.5rem;
+            padding-left: 1rem;
+            border-left: 2px solid var(--sand);
+        }
+
+        .time {
+            font-family: 'Anton', sans-serif;
+            color: var(--sand);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .activity {
+            line-height: 1.8;
+            color: rgba(255,255,255,0.75);
+            font-size: 0.93rem;
+        }
+
+        .activity strong { color: var(--cream); }
+
+        .tip-box {
+            background: rgba(196,169,110,0.12);
+            border-left: 3px solid var(--sand);
+            padding: 1rem 1.1rem;
+            margin-top: 1.25rem;
+            border-radius: 4px;
+            font-style: italic;
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* ══════════════════════════════════════════════
+           RESTAURANT CARDS
+        ══════════════════════════════════════════════ */
+        .info-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 560px) {
+            .info-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+
+        @media (min-width: 800px) {
+            .info-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .restaurant-card {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(196,169,110,0.2);
+            border-top: 3px solid rgba(196,169,110,0.4);
+            padding: 1.25rem 1.25rem 1.1rem;
+            border-radius: 6px;
+            transition: border-top-color 0.2s;
+        }
+
+        .restaurant-card.featured {
+            border-top-color: var(--sand);
+            background: rgba(196,169,110,0.08);
+        }
+
+        .restaurant-card h4 {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.2rem;
+            color: var(--white);
+            margin-bottom: 0.35rem;
+            letter-spacing: 0.03em;
+            line-height: 1.1;
+        }
+
+        .restaurant-card.featured h4 { color: var(--sand-lt); }
+
+        .restaurant-card h4 a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .restaurant-card h4 a:hover { text-decoration: underline; }
+
+        .restaurant-card p {
+            font-size: 0.88rem;
+            line-height: 1.6;
+            color: rgba(255,255,255,0.6);
+        }
+
+        .restaurant-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+            margin-top: 0.75rem;
+            padding-top: 0.75rem;
+            border-top: 1px solid rgba(196,169,110,0.15);
+        }
+
+        .restaurant-meta-row {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.4rem;
+            font-size: 0.82rem;
+            color: rgba(255,255,255,0.5);
+            line-height: 1.4;
+        }
+
+        .restaurant-meta-row strong {
+            color: var(--sand);
+            font-weight: 500;
+            white-space: nowrap;
+        }
+
+        .restaurant-meta-row a {
+            color: rgba(196,169,110,0.8);
+            text-decoration: none;
+        }
+
+        .restaurant-meta-row a:hover { text-decoration: underline; }
+
+        /* ══════════════════════════════════════════════
+           PACK CARDS
+        ══════════════════════════════════════════════ */
+        .pack-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 560px) {
+            .pack-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .pack-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(196,169,110,0.15);
+            border-top: 3px solid var(--olive-md);
+            padding: 1.25rem;
+            border-radius: 6px;
+        }
+
+        .pack-card h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.2rem;
+            color: var(--sand);
+            margin-bottom: 0.9rem;
+            letter-spacing: 0.06em;
+        }
+
+        .pack-card p.temp-note {
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 0.75rem;
+            font-style: italic;
+        }
+
+        .pack-list { list-style: none; }
+
+        .pack-list li {
+            padding: 0.5rem 0 0.5rem 1.5rem;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.9rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .pack-list li::before {
+            content: '—';
+            position: absolute;
+            left: 0;
+            color: var(--sand);
+            opacity: 0.6;
+        }
+
+        /* ══════════════════════════════════════════════
+           SAFETY — 3 COLUMN UNIFIED
+        ══════════════════════════════════════════════ */
+        .emergency-box {
+            background: rgba(139,58,30,0.15);
+            border: 1px solid rgba(139,58,30,0.4);
+            border-left: 4px solid var(--rust);
+            padding: 1.25rem 1.5rem;
+            border-radius: 6px;
+            margin-bottom: 2rem;
+        }
+
+        .emergency-box h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.4rem;
+            color: #e06040;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.06em;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.6rem;
+        }
+
+        @media (min-width: 560px) {
+            .contact-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+
+        .contact-item {
+            font-family: 'DM Sans', sans-serif;
+            font-weight: 500;
+            font-size: 0.82rem;
+            padding: 0.65rem 0.75rem;
+            background: rgba(255,255,255,0.05);
+            border-radius: 4px;
+            line-height: 1.4;
+            color: rgba(255,255,255,0.75);
+        }
+
+        /* 3-column safety grid */
+        .safety-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+        }
+
+        @media (min-width: 480px) {
+            .safety-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+
+        .safety-card {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(196,169,110,0.15);
+            border-top: 3px solid var(--olive-md);
+            padding: 1.25rem;
+            border-radius: 6px;
+        }
+
+        .safety-card.danger { border-top-color: rgba(139,58,30,0.7); }
+        .safety-card.info   { border-top-color: rgba(120,150,130,0.7); }
+        .safety-card.tip    { border-top-color: rgba(196,169,110,0.6); }
+
+        .safety-card h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.1rem;
+            letter-spacing: 0.06em;
+            margin-bottom: 0.9rem;
+        }
+
+        .safety-card.danger h3 { color: #e06040; }
+        .safety-card.info h3   { color: var(--mist); }
+        .safety-card.tip h3    { color: var(--sand); }
+
+        .safety-list { list-style: none; }
+
+        .safety-list li {
+            padding: 0.45rem 0 0.45rem 1.4rem;
+            position: relative;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.87rem;
+            color: rgba(255,255,255,0.65);
+            line-height: 1.4;
+        }
+
+        .safety-list li:last-child { border-bottom: none; }
+
+        .safety-list li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            font-size: 1.1rem;
+            line-height: 1.3;
+        }
+
+        .safety-card.danger .safety-list li::before { color: #e06040; }
+        .safety-card.info   .safety-list li::before { color: var(--mist); }
+        .safety-card.tip    .safety-list li::before { color: var(--sand); }
+
+        /* ══════════════════════════════════════════════
+           SPOTTER GAME
+        ══════════════════════════════════════════════ */
+        #spotter { scroll-margin-top: 1rem; }
+
+        .spotter-header-card {
+            background: rgba(196,169,110,0.12);
+            border: 1px solid rgba(196,169,110,0.3);
+            border-radius: 6px 6px 0 0;
+            padding: 1.2rem 1.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        .spotter-header-card h3 {
+            font-family: 'Anton', sans-serif;
+            font-size: 0.85rem;
+            color: var(--sand);
+            letter-spacing: 0.15em;
+        }
+
+        .spotter-header-card p {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.45);
+            margin-top: 0.15rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .spotter-score-pill {
+            background: var(--sand);
+            color: var(--charcoal);
+            font-family: 'Anton', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.1em;
+            padding: 0.3rem 0.85rem;
+            border-radius: 2px;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .spotter-list {
+            background: rgba(255,255,255,0.03);
+            border-radius: 0 0 6px 6px;
+            overflow: hidden;
+            border: 1px solid rgba(196,169,110,0.2);
+            border-top: none;
+        }
+
+        .spotter-row {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            padding: 0.8rem 1rem;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            transition: background 0.2s;
+        }
+
+        .spotter-row:last-child { border-bottom: none; }
+
+        .spotter-row.claimed {
+            background: rgba(196,169,110,0.07);
+        }
+
+        .spotter-rank {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.2);
+            width: 20px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .spotter-row:nth-child(1) .spotter-rank { color: var(--sand); font-size: 1.3rem; }
+        .spotter-row:nth-child(2) .spotter-rank { color: rgba(255,255,255,0.4); font-size: 1.2rem; }
+        .spotter-row:nth-child(3) .spotter-rank { color: rgba(180,120,80,0.7); font-size: 1.15rem; }
+        .spotter-row.claimed .spotter-rank { color: var(--sand); }
+
+        .spotter-animal-icon {
+            font-size: 1.6rem;
+            width: 30px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .spotter-info { flex: 1; min-width: 0; }
+
+        .spotter-animal-name {
+            font-family: 'Anton', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.04em;
+            color: var(--white);
+            line-height: 1.1;
+        }
+
+        .spotter-animal-desc {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.4);
+            font-family: 'DM Sans', sans-serif;
+            margin-top: 0.1rem;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .spotter-claim-area {
+            flex-shrink: 0;
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .spotter-btn {
+            background: transparent;
+            border: 1px solid var(--sand);
+            border-radius: 2px;
+            padding: 0.38rem 0.85rem;
+            font-family: 'Anton', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            color: var(--sand);
+            cursor: pointer;
+            white-space: nowrap;
+            -webkit-tap-highlight-color: transparent;
+            transition: background 0.15s, color 0.15s;
+        }
+
+        .spotter-btn:active { background: var(--sand); color: var(--charcoal); }
+
+        .spotter-claimed-badge {
+            display: none;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .spotter-row.claimed .spotter-claimed-badge { display: flex; }
+        .spotter-row.claimed .spotter-btn { display: none; }
+
+        .spotter-name-tag {
+            background: var(--sand);
+            color: var(--charcoal);
+            font-family: 'Anton', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.06em;
+            padding: 0.3rem 0.75rem;
+            border-radius: 2px;
+            max-width: 85px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .spotter-undo {
+            background: none;
+            border: none;
+            font-size: 1rem;
+            cursor: pointer;
+            opacity: 0.3;
+            padding: 0.3rem;
+            -webkit-tap-highlight-color: transparent;
+            transition: opacity 0.15s;
+            flex-shrink: 0;
+            color: var(--cream);
+        }
+
+        .spotter-undo:active { opacity: 1; }
+
+        .spotter-reset {
+            display: block;
+            width: 100%;
+            margin-top: 1rem;
+            padding: 0.75rem;
+            background: transparent;
+            color: rgba(255,255,255,0.25);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 3px;
+            font-family: 'Anton', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.12em;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: all 0.2s;
+        }
+
+        .spotter-reset:active { border-color: var(--rust); color: var(--rust); }
+
+        /* ══════════════════════════════════════════════
+           NAME / ANIMAL SHEET
+        ══════════════════════════════════════════════ */
+        .name-sheet-overlay {
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.75);
+            backdrop-filter: blur(4px);
+            -webkit-backdrop-filter: blur(4px);
+            z-index: 960;
+            display: none;
+            align-items: flex-end;
+            justify-content: center;
+        }
+
+        .name-sheet-overlay.active { display: flex; }
+
+        .name-sheet {
+            background: var(--olive-dk);
+            border-top: 3px solid var(--sand);
+            width: 100%;
+            max-width: 500px;
+            max-height: 92svh;
+            overflow-y: auto;
+            -webkit-overflow-scrolling: touch;
+            border-radius: 20px 20px 0 0;
+            padding: 1rem 1.5rem 2.5rem;
+            transform: translateY(100%);
+            transition: transform 0.3s cubic-bezier(0.32, 0.72, 0, 1);
+            box-shadow: 0 -8px 40px rgba(0,0,0,0.5);
+        }
+
+        .name-sheet-overlay.active .name-sheet { transform: translateY(0); }
+
+        .name-sheet-handle {
+            width: 36px; height: 3px;
+            background: rgba(255,255,255,0.15);
+            border-radius: 2px;
+            margin: 0 auto 1.25rem;
+        }
+
+        .animal-photo {
+            width: 100%;
+            height: 190px;
+            object-fit: cover;
+            border-radius: 6px;
+            margin-bottom: 1rem;
+            display: block;
+            background: rgba(255,255,255,0.05);
+        }
+
+        .name-sheet-title {
+            font-family: 'Anton', sans-serif;
+            font-size: 1.9rem;
+            color: var(--white);
+            letter-spacing: 0.04em;
+            margin-bottom: 0.2rem;
+            line-height: 1;
+        }
+
+        .animal-where {
+            font-size: 0.82rem;
+            color: var(--sand);
+            font-style: italic;
+            margin-bottom: 1.1rem;
+            font-family: 'DM Sans', sans-serif;
+            letter-spacing: 0.04em;
+        }
+
+        .animal-fun-fact {
+            background: rgba(196,169,110,0.1);
+            border-left: 3px solid var(--sand);
+            padding: 0.85rem 1rem;
+            border-radius: 4px;
+            margin-bottom: 1.25rem;
+            font-size: 0.88rem;
+            line-height: 1.65;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .animal-fun-fact strong {
+            display: block;
+            font-family: 'Anton', sans-serif;
+            font-size: 0.75rem;
+            letter-spacing: 0.12em;
+            color: var(--sand);
+            margin-bottom: 0.3rem;
+        }
+
+        .name-input-row {
+            display: flex;
+            gap: 0.6rem;
+        }
+
+        .name-input {
+            flex: 1;
+            padding: 0.8rem 1rem;
+            border: 1px solid rgba(196,169,110,0.4);
+            border-radius: 4px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 1rem;
+            color: var(--white);
+            outline: none;
+            background: rgba(255,255,255,0.06);
+            transition: border-color 0.2s;
+        }
+
+        .name-input::placeholder { color: rgba(255,255,255,0.3); }
+        .name-input:focus { border-color: var(--sand); }
+
+        .name-submit {
+            background: var(--sand);
+            color: var(--charcoal);
+            border: none;
+            border-radius: 4px;
+            padding: 0.8rem 1.3rem;
+            font-family: 'Anton', sans-serif;
+            font-size: 1rem;
+            letter-spacing: 0.08em;
+            cursor: pointer;
+            flex-shrink: 0;
+            -webkit-tap-highlight-color: transparent;
+            transition: background 0.15s;
+        }
+
+        .name-submit:active { background: var(--sand-lt); }
+
+        .quick-names {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.45rem;
+            margin-top: 0.9rem;
+        }
+
+        .quick-name-btn {
+            background: transparent;
+            border: 1px solid rgba(196,169,110,0.35);
+            border-radius: 2px;
+            padding: 0.35rem 0.9rem;
+            font-family: 'Anton', sans-serif;
+            font-size: 0.8rem;
+            letter-spacing: 0.08em;
+            color: var(--sand);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: background 0.15s;
+        }
+
+        .quick-name-btn:active { background: rgba(196,169,110,0.15); }
+
+
+        /* ══════════════════════════════════════════════
+           FOOTER
+        ══════════════════════════════════════════════ */
+        .footer {
+            background: var(--charcoal);
+            border-top: 2px solid rgba(196,169,110,0.2);
+            text-align: center;
+            padding: 2.5rem 1.5rem;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .footer-logo {
+            width: 60px; height: 60px;
+            background: var(--sand);
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Anton', sans-serif;
+            font-size: 2rem;
+            color: var(--charcoal);
+        }
+
+        .footer p { color: rgba(255,255,255,0.5); font-size: 0.9rem; line-height: 1.8; }
+        .footer .footer-big { font-family: 'Anton', sans-serif; font-size: 1.2rem; letter-spacing: 0.06em; color: var(--sand); margin-bottom: 0.3rem; }
+    </style>
+</head>
+<body>
+
+<!-- ═══════════════════ HERO ═══════════════════ -->
+<section class="hero" id="home">
+    <div class="hero-photo-main"></div>
+
+    <!-- Curved accent line -->
+    <svg class="hero-curve" viewBox="0 0 400 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M380 20 C300 80, 80 120, 60 250 C40 380, 200 420, 160 490"
+              stroke="#c4a96e" stroke-width="1.5" fill="none" opacity="0.45" stroke-linecap="round"/>
+    </svg>
+
+    <!-- Top bar -->
+    <div class="hero-top-bar">
+        <span class="top-bar-label">VOL. 30 · NO. 1</span>
+        <span class="top-bar-label">JUNE 2026</span>
+    </div>
+
+    <!-- Hero content -->
+    <div class="hero-content">
+        <div class="hero-tagline">
+            <div class="hero-tagline-text">HAPPY<br>BIRTHDAY<br>Q 🎂</div>
+        </div>
+
+        <div class="hero-title-block">
+            <h1 class="hero-title">BABY<br>BRO'S<br><span>BIG 3-0</span></h1>
+            <div class="hero-title-sub">Yellowstone Adventure</div>
+            <div class="hero-dates">JUNE 18 – 22, 2026</div>
+            <div class="countdown" id="countdown">Loading…</div>
+        </div>
+
+        <!-- Photo-map card — sits below the title -->
+        <div class="hero-map-container">
+            <div class="map-photo-card">
+                <!-- Real Yellowstone landscape photo as the map base -->
+                <img class="map-bg"
+                     src="https://i.imgur.com/J1b8QZi.jpeg"
+                     alt="Yellowstone National Park" />
+
+                <!-- SVG route: D1(38,32) D2(62,46) D3(35,60) D4(60,74) D5(48,87) -->
+                <svg class="map-route-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
+                    <path d="M 38,32 C 46,37 56,42 62,46
+                             C 54,52 44,57 35,60
+                             C 42,66 52,70 60,74
+                             C 56,79 52,83 48,87"
+                          fill="none"
+                          stroke="rgba(196,169,110,0.85)"
+                          stroke-width="0.9"
+                          stroke-dasharray="1.8,2.2"
+                          stroke-linecap="round"/>
+                </svg>
+
+                <!-- Day pins -->
+                <div class="day-marker day-1" onclick="openDay(1)" role="button" aria-label="Day 1">
+                    <div class="marker-circle"><span class="marker-number">1</span></div>
+                </div>
+                <div class="day-marker day-2" onclick="openDay(2)" role="button" aria-label="Day 2">
+                    <div class="marker-circle"><span class="marker-number">2</span></div>
+                </div>
+                <div class="day-marker day-3" onclick="openDay(3)" role="button" aria-label="Day 3">
+                    <div class="marker-circle"><span class="marker-number">3</span></div>
+                </div>
+                <div class="day-marker day-4" onclick="openDay(4)" role="button" aria-label="Day 4">
+                    <div class="marker-circle"><span class="marker-number">4</span></div>
+                </div>
+                <div class="day-marker day-5" onclick="openDay(5)" role="button" aria-label="Day 5">
+                    <div class="marker-circle"><span class="marker-number">5</span></div>
+                </div>
+
+                <div class="map-park-label">Yellowstone N.P.</div>
+            </div>
+            <p class="tap-hint">↑ tap a pin to see the day's plan</p>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ FIRST SPOTTER ═══════════════════ -->
+<section class="page-section bg-olive" id="spotter">
+    <div class="section-inner">
+        <div class="section-header">
+            <div class="section-label">The game</div>
+            <h2 class="section-title">FIRST<br>SPOTTER</h2>
+            <div class="rule"></div>
+            <p>Who spots it first? Tap <strong style="color:var(--sand)">I SAW IT</strong>, enter your name, and claim the glory forever. Most spots wins. 🏆</p>
+        </div>
+
+        <div class="spotter-header-card">
+            <div>
+                <h3>TOP 10 ANIMALS TO SPOT</h3>
+                <p>Rarer = more bragging rights</p>
+            </div>
+            <div class="spotter-score-pill" id="spotterScorePill">0 / 10 SPOTTED</div>
+        </div>
+        <div class="spotter-list" id="spotterList"></div>
+        <button class="spotter-reset" onclick="resetSpotter()">↺ RESET ALL SIGHTINGS</button>
+    </div>
+</section>
+
+<!-- ═══════════════════ RESTAURANTS ═══════════════════ -->
+<section class="page-section bg-dark" id="eat">
+    <div class="section-inner">
+        <div class="section-header">
+            <div class="section-label">Food & drink</div>
+            <h2 class="section-title sand">WHERE<br>TO EAT</h2>
+            <div class="rule"></div>
+        </div>
+
+        <p class="sub-heading">Gateway Town</p>
+        <div class="info-grid">
+            <div class="restaurant-card featured">
+                <h4>🎉 Wild West Pizzeria & Saloon</h4>
+                <p>Wood-fired pizza, live music, sports bar atmosphere. Perfect for the kickoff night.</p>
+                <div class="restaurant-meta">
+                    <div class="restaurant-meta-row">
+                        <strong>Hours</strong>
+                        <span>Mon–Sun 10am–2am</span>
+                    </div>
+                    <div class="restaurant-meta-row">
+                        <strong>Web</strong>
+                        <a href="https://wildwestpizza.com" target="_blank">wildwestpizza.com ↗</a>
+                    </div>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <h4>Serenity Bistro</h4>
+                <p>Montana cuisine, locally sourced ingredients, extensive wine list. More relaxed setting.</p>
+                <div class="restaurant-meta">
+                    <div class="restaurant-meta-row">
+                        <strong>Hours</strong>
+                        <span>Daily 5pm–9pm</span>
+                    </div>
+                    <div class="restaurant-meta-row">
+                        <strong>Web</strong>
+                        <a href="https://www.serenitybistro.co" target="_blank">serenitybistro.co ↗</a>
+                    </div>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <h4>Ernie's Bakery & Deli</h4>
+                <p>Breakfast sandwiches and grab-and-go lunches. Ideal for early park days.</p>
+                <div class="restaurant-meta">
+                    <div class="restaurant-meta-row">
+                        <strong>Hours</strong>
+                        <span>Daily 6am–3pm</span>
+                    </div>
+                    <div class="restaurant-meta-row">
+                        <strong>Map</strong>
+                        <a href="https://maps.google.com/?q=Ernie%27s+Bakery+Gardiner+MT" target="_blank">Find on Google Maps ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <p class="sub-heading">In-Park Dining</p>
+        <div class="info-grid">
+            <div class="restaurant-card featured">
+                <h4>🎂 Old Faithful Inn Dining Room</h4>
+                <p><strong style="color:var(--sand-lt)">Birthday dinner!</strong> Historic log cabin beams, cozy fireplace. Reservations required — book early.</p>
+                <div class="restaurant-meta">
+                    <div class="restaurant-meta-row">
+                        <strong>Dinner</strong>
+                        <span>4:30pm–10pm daily</span>
+                    </div>
+                    <div class="restaurant-meta-row">
+                        <strong>Res.</strong>
+                        <a href="tel:3073447311">(307) 344-7311</a>
+                    </div>
+                    <div class="restaurant-meta-row">
+                        <strong>Web</strong>
+                        <a href="https://www.yellowstonenationalparklodges.com/restaurant/old-faithful-inn-dining-room/" target="_blank">yellowstonenationalparklodges.com ↗</a>
+                    </div>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <h4>Lake Yellowstone Hotel</h4>
+                <p>Elegant lakeside dining. Good backup if Old Faithful Inn is fully booked.</p>
+                <div class="restaurant-meta">
+                    <div class="restaurant-meta-row">
+                        <strong>Dinner</strong>
+                        <span>5:30pm–9:30pm</span>
+                    </div>
+                    <div class="restaurant-meta-row">
+                        <strong>Res.</strong>
+                        <a href="tel:3073447311">(307) 344-7311</a>
+                    </div>
+                    <div class="restaurant-meta-row">
+                        <strong>Web</strong>
+                        <a href="https://www.yellowstonenationalparklodges.com/dining/" target="_blank">yellowstonenationalparklodges.com ↗</a>
+                    </div>
+                </div>
+            </div>
+            <div class="restaurant-card">
+                <h4>Lodge Cafeterias</h4>
+                <p>Fast, budget-friendly options at Old Faithful, Canyon Village, and other lodges throughout the park.</p>
+                <div class="restaurant-meta">
+                    <div class="restaurant-meta-row">
+                        <strong>Hours</strong>
+                        <span>6:30am–9pm (varies)</span>
+                    </div>
+                    <div class="restaurant-meta-row">
+                        <strong>Web</strong>
+                        <a href="https://www.yellowstonenationalparklodges.com/dining/" target="_blank">See all park dining ↗</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ PACKING ═══════════════════ -->
+<section class="page-section bg-olive" id="pack">
+    <div class="section-inner">
+        <div class="section-header">
+            <div class="section-label">Preparation</div>
+            <h2 class="section-title">WHAT TO<br>PACK</h2>
+            <div class="rule"></div>
+        </div>
+        <div class="pack-grid">
+            <div class="pack-card">
+                <h3>Clothing</h3>
+                <p class="temp-note">Layer up — 35–75°F range</p>
+                <ul class="pack-list">
+                    <li>Warm jacket</li>
+                    <li>Light fleece</li>
+                    <li>T-shirts & long-sleeves</li>
+                    <li>Long pants & shorts</li>
+                    <li>Hiking shoes</li>
+                    <li>Hat & sunglasses</li>
+                    <li>Rain jacket</li>
+                </ul>
+            </div>
+            <div class="pack-card">
+                <h3>Gear</h3>
+                <ul class="pack-list">
+                    <li>Sunscreen</li>
+                    <li>Water bottles</li>
+                    <li>Binoculars</li>
+                    <li>Camera + chargers</li>
+                    <li>Backpack</li>
+                    <li>Cooler for van</li>
+                    <li>First aid kit</li>
+                    <li>Headlamp</li>
+                    <li>Phone charger</li>
+                </ul>
+            </div>
+            <div class="pack-card">
+                <h3>Optional</h3>
+                <ul class="pack-list">
+                    <li>Bear spray</li>
+                    <li>Picnic blanket</li>
+                    <li>Playing cards</li>
+                    <li>Birthday decor</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ SAFETY ═══════════════════ -->
+<section class="page-section bg-dark" id="safety">
+    <div class="section-inner">
+        <div class="section-header">
+            <div class="section-label">Important</div>
+            <h2 class="section-title">SAFETY<br>& RULES</h2>
+            <div class="rule"></div>
+        </div>
+
+        <div class="emergency-box">
+            <h3>🚨 Emergency Contacts</h3>
+            <div class="contact-grid">
+                <div class="contact-item">📞 Emergency<br>911 / 307-344-7381</div>
+                <div class="contact-item">📞 Lodging<br>307-344-7311</div>
+                <div class="contact-item">📞 Park Info<br>307-344-7381</div>
+                <div class="contact-item">📞 Roads<br>307-344-2117</div>
+            </div>
+        </div>
+
+        <div class="safety-grid">
+            <div class="safety-card danger">
+                <h3>🐻 Wildlife</h3>
+                <ul class="safety-list">
+                    <li><strong>25 yards</strong> from bison & elk</li>
+                    <li><strong>100 yards</strong> from bears & wolves</li>
+                    <li>Never feed any wildlife</li>
+                    <li>Bison cause most injuries</li>
+                    <li>If it reacts, you're too close</li>
+                </ul>
+            </div>
+            <div class="safety-card info">
+                <h3>🌋 Thermal Areas</h3>
+                <ul class="safety-list">
+                    <li>Stay on boardwalks always</li>
+                    <li>Ground can collapse suddenly</li>
+                    <li>Hot springs are scalding</li>
+                    <li>No swimming in thermals</li>
+                    <li>Keep kids close at all times</li>
+                </ul>
+            </div>
+            <div class="safety-card tip">
+                <h3>🗺️ Park Tips</h3>
+                <ul class="safety-list">
+                    <li>Limited cell service</li>
+                    <li>Fill gas whenever possible</li>
+                    <li>Stay hydrated at 7–8k ft</li>
+                    <li>Park entry fee: $35/vehicle</li>
+                    <li>Download NPS app offline</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<footer class="footer">
+    <div class="footer-logo">Q</div>
+    <p class="footer-big">Baby Bro's Big 3-0 🦬</p>
+    <p>Yellowstone Adventure · June 2026</p>
+    <p style="margin-top:0.5rem;font-style:italic;">Here's to the next chapter, Q! 🎂</p>
+</footer>
+
+<!-- ═══════════════════ BOTTOM NAV ═══════════════════ -->
+<nav class="bottom-nav" role="navigation" aria-label="Main navigation">
+    <a class="nav-item" href="#home" onclick="setActive(this)">
+        <span class="nav-icon">🏔️</span><span>HOME</span>
+    </a>
+    <a class="nav-item" href="#spotter" onclick="setActive(this)">
+        <span class="nav-icon">🎯</span><span>SPOTTER</span>
+    </a>
+    <a class="nav-item" href="#eat" onclick="setActive(this)">
+        <span class="nav-icon">🍽️</span><span>EAT</span>
+    </a>
+    <a class="nav-item" href="#pack" onclick="setActive(this)">
+        <span class="nav-icon">🎒</span><span>PACK</span>
+    </a>
+    <a class="nav-item" href="#safety" onclick="setActive(this)">
+        <span class="nav-icon">⚠️</span><span>SAFETY</span>
+    </a>
+</nav>
+
+<!-- ═══════════════════ MODALS ═══════════════════ -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModal()">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-handle"></div>
+        <div class="modal-header">
+            <div class="modal-day-badge" id="modalBadge">1</div>
+            <div class="modal-meta">
+                <div class="modal-title" id="modalTitle">Day Title</div>
+                <div id="modalBadgeSpecial"></div>
+                <div class="modal-date" id="modalDate">Date</div>
+            </div>
+            <div class="modal-close" onclick="closeModal()" aria-label="Close">×</div>
+        </div>
+        <div class="modal-content" id="modalContent"></div>
+    </div>
+</div>
+
+<div class="name-sheet-overlay" id="nameSheetOverlay" onclick="closeNameSheet()">
+    <div class="name-sheet" onclick="event.stopPropagation()">
+        <div class="name-sheet-handle"></div>
+        <img class="animal-photo" id="nameSheetPhoto" src="" alt="" loading="lazy" />
+        <div class="name-sheet-title" id="nameSheetTitle">Animal Name</div>
+        <div class="animal-where" id="nameSheetSubtitle">Where to find it</div>
+        <div class="animal-fun-fact">
+            <strong>🧠 FUN FACT</strong>
+            <span id="nameSheetFact"></span>
+        </div>
+        <div class="name-input-row">
+            <input class="name-input" id="nameInput" type="text"
+                   placeholder="Who saw it first?" maxlength="16"
+                   autocomplete="off" onkeydown="if(event.key==='Enter') submitName()"/>
+            <button class="name-submit" onclick="submitName()">CLAIM IT</button>
+        </div>
+        <div class="quick-names" id="quickNames"></div>
+    </div>
+</div>
+
+<script>
+// ─── DAY DATA ──────────────────────────────────────────
+const dayData = {
+    1: {
+        title: "ARRIVAL & SETTLE IN",
+        date: "Thursday, June 18",
+        content: `
+            <div class="time-block">
+                <span class="time">Evening</span>
+                <div class="activity">
+                    • Flights arrive Bozeman (late afternoon/evening)<br>
+                    • Pick up rental van<br>
+                    • 90-minute scenic drive to gateway town<br>
+                    • Check into accommodation<br>
+                    • Stock up on snacks/picnic supplies
+                </div>
+            </div>
+            <div class="time-block">
+                <span class="time">7:30 PM</span>
+                <div class="activity">
+                    🎉 <strong>Birthday Kickoff Dinner</strong> — Group celebration!
+                </div>
+            </div>
+            <div class="tip-box">
+                💡 <strong>Pro Tip:</strong> Download the Yellowstone NPS app and geyser prediction times tonight. Set alarms for an early start!
+            </div>`
+    },
+    2: {
+        title: "OLD FAITHFUL & GRAND CANYON",
+        date: "Friday, June 19",
+        content: `
+            <div class="time-block">
+                <span class="time">6:30–7:30 AM</span>
+                <div class="activity">
+                    • Breakfast at local restaurant<br>
+                    • Pack picnic lunch<br>
+                    • Enter park by 7:30 AM
+                </div>
+            </div>
+            <div class="time-block">
+                <span class="time">8 AM – 12 PM</span>
+                <div class="activity">
+                    • Drive to <strong>Old Faithful</strong><br>
+                    • Watch it erupt (every ~90 min)<br>
+                    • Walk Upper Geyser Basin boardwalk<br>
+                    • See Castle, Grand & Riverside geysers<br>
+                    • Drive to Grand Canyon of Yellowstone
+                </div>
+            </div>
+            <div class="time-block">
+                <span class="time">12 – 5 PM</span>
+                <div class="activity">
+                    • <strong>Artist Point</strong> — iconic canyon viewpoint<br>
+                    • Hike Uncle Tom's Trail (328 steps to Lower Falls)<br>
+                    • Picnic lunch at Canyon Village<br>
+                    • <strong>Hayden Valley</strong> — bison & grizzlies!<br>
+                    • Mud Volcano area
+                </div>
+            </div>
+            <div class="time-block">
+                <span class="time">5 – 7:30 PM</span>
+                <div class="activity">
+                    • <strong>West Thumb Geyser Basin</strong> on Yellowstone Lake<br>
+                    • Return to gateway town, check out<br>
+                    • Drive to in-park lodging, check in
+                </div>
+            </div>
+            <div class="tip-box">
+                💡 <strong>Pro Tip:</strong> Keep cameras ready in Hayden Valley — wildlife traffic jams are common!
+            </div>`
+    },
+    3: {
+        title: "MAMMOTH & NORTHERN LOOP",
+        date: "Saturday, June 20",
+        badge: "🎂 BIRTHDAY!",
+        content: `
+            <div class="time-block">
+                <span class="time">7 – 9 AM</span>
+                <div class="activity">
+                    • Breakfast at lodge cafeteria<br>
+                    • Catch a morning Old Faithful eruption
+                </div>
+            </div>
+            <div class="time-block">
+                <span class="time">9 AM – 4 PM</span>
+                <div class="activity">
+                    • Drive north to <strong>Mammoth Hot Springs</strong> (1.5 hrs)<br>
+                    • Explore Upper & Lower Terraces boardwalks<br>
+                    • Visit historic Fort Yellowstone buildings<br>
+                    • <strong>Lamar Valley</strong> — "America's Serengeti"<br>
+                    • Wolves, bison, elk, bears, pronghorn — binoculars!<br>
+                    • Stop at Tower Fall viewpoint
+                </div>
+            </div>
+            <div class="time-block">
+                <span class="time">7:00 PM</span>
+                <div class="activity">
+                    🎂 <strong>BIRTHDAY CELEBRATION DINNER</strong><br>
+                    Old Faithful Inn Dining Room<br>
+                    Toast to 30 years! Evening stargazing after.
+                </div>
+            </div>
+            <div class="tip-box">
+                💡 <strong>Pro Tip:</strong> Dawn and dusk are best for Lamar Valley wildlife. Adjust if you want an early start!
+            </div>`
+    },
+    4: {
+        title: "GRAND PRISMATIC & RELAX",
+        date: "Sunday, June 21",
+        content: `
+            <div class="time-block">
+                <span class="time">8 – 11 AM</span>
+                <div class="activity">
+                    • Sleep in — you've earned it!<br>
+                    • Leisurely breakfast<br>
+                    • <strong>Grand Prismatic Spring</strong><br>
+                    • Grand Prismatic Overlook Trail (1.2 mi roundtrip)<br>
+                    • Walk Midway Geyser Basin boardwalk
+                </div>
+            </div>
+            <div class="time-block">
+                <span class="time">11 AM – 4 PM</span>
+                <div class="activity">
+                    • <strong>Norris Geyser Basin</strong> — most dynamic thermal area<br>
+                    • Porcelain Basin (stunning colors)<br>
+                    • Leisurely drive back, catch another Old Faithful eruption<br>
+                    • Relax at lodge
+                </div>
+            </div>
+            <div class="time-block">
+                <span class="time">Evening</span>
+                <div class="activity">
+                    • Casual in-park dinner<br>
+                    • Stargazing (minimal light pollution!)
+                </div>
+            </div>
+            <div class="tip-box">
+                💡 <strong>Pro Tip:</strong> This is your recovery day. Take it easy and soak it all in!
+            </div>`
+    },
+    5: {
+        title: "FINAL MORNING & DEPARTURE",
+        date: "Monday, June 22",
+        content: `
+            <div class="time-block">
+                <span class="time">7 – 11 AM</span>
+                <div class="activity">
+                    • Early breakfast at lodge<br>
+                    • <strong>Choose your adventure:</strong><br>
+                    &nbsp;&nbsp;– Revisit favorite spots<br>
+                    &nbsp;&nbsp;– Firehole Canyon Drive<br>
+                    &nbsp;&nbsp;– Final Old Faithful eruption & photos<br>
+                    • Check out by 11 AM, pack up van
+                </div>
+            </div>
+            <div class="time-block">
+                <span class="time">11 AM – 2 PM</span>
+                <div class="activity">
+                    • Exit park<br>
+                    • Drive to Bozeman (2–2.5 hrs)<br>
+                    • Lunch on Main Street Bozeman
+                </div>
+            </div>
+            <div class="time-block">
+                <span class="time">2 PM onwards</span>
+                <div class="activity">
+                    • Return rental van<br>
+                    • Depart Bozeman ✈️ Chicago
+                </div>
+            </div>
+            <div class="tip-box">
+                💡 <strong>Pro Tip:</strong> Keep flexible — if you want one last wildlife session, build it into the morning!
+            </div>`
+    }
+};
+
+function openDay(n) {
+    const d = dayData[n];
+    document.getElementById('modalBadge').textContent = n;
+    document.getElementById('modalTitle').textContent = d.title;
+    document.getElementById('modalBadgeSpecial').innerHTML = d.badge
+        ? `<span class="badge-special">${d.badge}</span>` : '';
+    document.getElementById('modalDate').textContent = d.date;
+    document.getElementById('modalContent').innerHTML = d.content;
+    document.getElementById('modalOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeNameSheet(); } });
+
+// ─── COUNTDOWN ────────────────────────────────────────
+function updateCountdown() {
+    const diff = new Date('2026-06-18T17:00:00') - new Date();
+    if (diff <= 0) { document.getElementById('countdown').textContent = '🎉 THE ADVENTURE IS HERE!'; return; }
+    const days = Math.floor(diff / 86400000);
+    const hours = Math.floor((diff % 86400000) / 3600000);
+    document.getElementById('countdown').textContent = `${days} DAYS · ${hours} HRS TO GO`;
+}
+updateCountdown();
+setInterval(updateCountdown, 60000);
+
+// ─── NAV ACTIVE STATE ─────────────────────────────────
+function setActive(el) {
+    document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
+    el.classList.add('active');
+}
+
+// ─── STORAGE ─────────────────────────────────────────
+// Sightings are saved per-device in localStorage.
+
+// ─── ANIMAL DATA ─────────────────────────────────────
+const spotterAnimals = [
+    { rank:1,  icon:'🐺', name:'Gray Wolf',         desc:'Dawn/dusk in Lamar Valley',
+      photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5f/Kolmarden_wolf.jpg/800px-Kolmarden_wolf.jpg',
+      fact:'Wolves were reintroduced to Yellowstone in 1995 after a 70-year absence. Their return caused a "trophic cascade" — changing the course of rivers by keeping elk on the move, which let riverbank vegetation regrow.' },
+    { rank:2,  icon:'🐻', name:'Grizzly Bear',      desc:'Hayden & Lamar Valleys',
+      photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Grizzly_Bear_Yellowstone_9265_cu.jpg/800px-Grizzly_Bear_Yellowstone_9265_cu.jpg',
+      fact:"A grizzly's sense of smell is roughly 7× better than a bloodhound's and 2,100× better than a human's. They can detect a carcass from 18 miles away." },
+    { rank:3,  icon:'🫎', name:'Moose',             desc:'Willow flats & marshy creek areas',
+      photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/35/Moose_superior_np.jpg/800px-Moose_superior_np.jpg',
+      fact:"A bull moose's antlers can span over 6 feet wide and weigh up to 40 lbs — and they shed and regrow the entire rack every single year." },
+    { rank:4,  icon:'🦁', name:'Mountain Lion',     desc:'Virtually impossible — legendary if seen',
+      photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4a/Mountain_lion_cougar_puma.jpg/800px-Mountain_lion_cougar_puma.jpg',
+      fact:'Mountain lions have the largest range of any wild land mammal in the Western Hemisphere. A single cat can roam a territory of up to 150 square miles.' },
+    { rank:5,  icon:'🦅', name:'Bald Eagle',        desc:'Near rivers and Yellowstone Lake',
+      photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/24701-nature-natural-beauty-eagle.jpg/800px-24701-nature-natural-beauty-eagle.jpg',
+      fact:'Bald eagles are not actually bald — "bald" comes from an old English word meaning "white." They do not get their iconic white head until they are about 5 years old.' },
+    { rank:6,  icon:'🐦', name:'Osprey',            desc:'Watch for dramatic river dives',
+      photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/8/86/Pandion_haliaetus_-Morro_Bay%2C_California%2C_USA_-flying-8.jpg/800px-Pandion_haliaetus_-Morro_Bay%2C_California%2C_USA_-flying-8.jpg',
+      fact:'Ospreys are the only raptor that dives feet-first into water to catch fish. They have barbed foot pads to grip slippery prey and a near-90% success rate per dive.' },
+    { rank:7,  icon:'🦌', name:'Bull Elk',          desc:'Meadows at dawn — listen for bugling',
+      photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Rocky_Mountain_Bull_Elk.jpg/800px-Rocky_Mountain_Bull_Elk.jpg',
+      fact:'Yellowstone is home to one of the largest elk herds in North America — around 10,000–20,000 animals. A bull elk bugle can be heard from miles away.' },
+    { rank:8,  icon:'🐾', name:'Pronghorn',         desc:'Open sagebrush near the North Entrance',
+      photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/f/f2/Antilocapra_americana_male_%28cropped%29.jpg/800px-Antilocapra_americana_male_%28cropped%29.jpg',
+      fact:'Pronghorn are the fastest land animal in the Western Hemisphere at 55 mph. They evolved that speed to outrun the now-extinct American cheetah — gone for 10,000 years.' },
+    { rank:9,  icon:'🦬', name:'Bison Traffic Jam', desc:'A herd blocking the road — it WILL happen',
+      photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/American_bison_k5680-1.jpg/800px-American_bison_k5680-1.jpg',
+      fact:'Yellowstone is the only US location where bison have lived continuously since prehistoric times. Once down to ~23 animals in 1902, the herd now numbers around 5,000.' },
+    { rank:10, icon:'🦢', name:'Trumpeter Swan',    desc:'Lakes and slow-moving rivers',
+      photo:'https://upload.wikimedia.org/wikipedia/commons/thumb/b/b1/Trumpeter_Swan_on_Seedskadee_NWR_%2826986888374%29.jpg/800px-Trumpeter_Swan_on_Seedskadee_NWR_%2826986888374%29.jpg',
+      fact:'Trumpeter swans are North America largest native waterfowl with wingspans up to 8 feet. Fewer than 70 survived into the 1930s. Today there are over 46,000.' },
+];
+
+// ─── STATE ───────────────────────────────────────────
+const SPOTTER_KEY = 'spotter_v1';
+let spotterData = {};
+let pendingSpotterIndex = null;
+try { spotterData = JSON.parse(localStorage.getItem(SPOTTER_KEY) || '{}'); } catch(e) {}
+
+// ─── RENDER: SPOTTER LIST ────────────────────────────
+function renderSpotter() {
+    const list = document.getElementById('spotterList');
+    list.innerHTML = '';
+    let claimed = 0;
+    spotterAnimals.forEach((animal, i) => {
+        const claim = spotterData[i];
+        if (claim) claimed++;
+        const row = document.createElement('div');
+        row.className = 'spotter-row' + (claim ? ' claimed' : '');
+        row.innerHTML = `
+            <div class="spotter-rank">${animal.rank}</div>
+            <div class="spotter-animal-icon">${animal.icon}</div>
+            <div class="spotter-info">
+                <div class="spotter-animal-name">${animal.name}</div>
+                <div class="spotter-animal-desc">${claim
+                    ? '\u{1F464} First spotted by <strong>' + claim.spotter_name + '</strong>'
+                    : animal.desc}</div>
+            </div>
+            <div class="spotter-claim-area">
+                <button class="spotter-btn" onclick="openNameSheet(${i})">I SAW IT</button>
+                <div class="spotter-claimed-badge">
+                    <div class="spotter-name-tag">${claim ? claim.spotter_name : ''}</div>
+                    <button class="spotter-undo" onclick="unclaimSpotter(${i})" title="Undo">✕</button>
+                </div>
+            </div>`;
+        list.appendChild(row);
+    });
+    document.getElementById('spotterScorePill').textContent = `${claimed} / 10 SPOTTED`;
+}
+
+// ─── CLAIM SHEET ─────────────────────────────────────
+function openNameSheet(index) {
+    if (spotterData[index]) return;
+    pendingSpotterIndex = index;
+    const a = spotterAnimals[index];
+    document.getElementById('nameSheetPhoto').src = a.photo;
+    document.getElementById('nameSheetPhoto').alt = a.name;
+    document.getElementById('nameSheetTitle').textContent = a.name;
+    document.getElementById('nameSheetSubtitle').textContent = 'Rank #' + a.rank + ' · ' + a.desc;
+    document.getElementById('nameSheetFact').textContent = a.fact;
+    document.getElementById('nameInput').value = '';
+    const seen = [...new Set(Object.values(spotterData).map(d => d.spotter_name))];
+    const qn = document.getElementById('quickNames');
+    qn.innerHTML = seen.length
+        ? '<div style="font-family:Anton,sans-serif;font-size:0.7rem;letter-spacing:0.1em;color:rgba(196,169,110,0.5);width:100%;margin-bottom:0.25rem;">QUICK SELECT</div>' +
+          seen.map(n => '<button class="quick-name-btn" onclick="quickClaim(\'' + n + '\')">' + n + '</button>').join('')
+        : '';
+    document.getElementById('nameSheetOverlay').classList.add('active');
+    document.body.style.overflow = 'hidden';
+    setTimeout(() => document.getElementById('nameInput').focus(), 380);
+}
+
+function closeNameSheet() {
+    document.getElementById('nameSheetOverlay').classList.remove('active');
+    document.body.style.overflow = '';
+    pendingSpotterIndex = null;
+}
+
+function saveClaim(name) {
+    if (pendingSpotterIndex === null || !name) return;
+    const idx = pendingSpotterIndex;
+    spotterData[idx] = {
+        animal_index: idx,
+        animal_name:  spotterAnimals[idx].name,
+        spotter_name: name,
+        spotted_at:   new Date().toISOString()
+    };
+    try { localStorage.setItem(SPOTTER_KEY, JSON.stringify(spotterData)); } catch(e) {}
+    closeNameSheet();
+    renderSpotter();
+}
+
+function quickClaim(name) { saveClaim(name); }
+function submitName() {
+    const raw = document.getElementById('nameInput').value.trim();
+    if (raw) saveClaim(raw);
+}
+
+function unclaimSpotter(index) {
+    if (!spotterData[index]) return;
+    delete spotterData[index];
+    try { localStorage.setItem(SPOTTER_KEY, JSON.stringify(spotterData)); } catch(e) {}
+    renderSpotter();
+}
+
+function resetSpotter() {
+    if (!confirm('Reset all sightings?')) return;
+    spotterData = {};
+    try { localStorage.removeItem(SPOTTER_KEY); } catch(e) {}
+    renderSpotter();
+}
+
+renderSpotter();
+
+
+// ─── INTERSECTION OBSERVER ────────────────────────────
+const sections = ['home','spotter','eat','pack','safety'];
+const navItems = document.querySelectorAll('.nav-item');
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            const id = entry.target.id;
+            navItems.forEach(n => n.classList.toggle('active', n.getAttribute('href') === '#' + id));
+        }
+    });
+}, { threshold: 0.3 });
+sections.forEach(id => { const el = document.getElementById(id); if (el) observer.observe(el); });
+
+</script>
+</body>
+</html>
