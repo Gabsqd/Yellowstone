@@ -355,16 +355,17 @@
         }
 
         /*
-         * Pin 1 sits on the ridgeline where mountains meet valley floor.
-         * Each subsequent pin steps down through the open valley.
+         * Pins tucked into the valley, flowing top → bottom.
+         * Shifted down so they sit in the open meadow,
+         * not on the ridgeline or sky.
          */
-        .day-1 { top: 32%; left: 38%; }
-        .day-2 { top: 46%; left: 62%; }
-        .day-3 { top: 60%; left: 35%; }
+        .day-1 { top: 38%; left: 38%; }
+        .day-2 { top: 50%; left: 63%; }
+        .day-3 { top: 63%; left: 34%; }
         .day-3 .marker-circle { border-color: #e8c464; background: rgba(30,42,20,0.95); }
         .day-3 .marker-number { color: #e8c464; }
-        .day-4 { top: 74%; left: 60%; }
-        .day-5 { top: 87%; left: 48%; }
+        .day-4 { top: 76%; left: 61%; }
+        .day-5 { top: 89%; left: 48%; }
 
         .tap-hint {
             font-family: 'DM Sans', sans-serif;
@@ -375,6 +376,60 @@
             margin-top: 0.5rem;
             font-weight: 300;
             text-transform: uppercase;
+        }
+
+        /* ─── MODAL DAY NAV ──────────────────────────────── */
+        .modal-nav {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0.75rem 1.5rem 1rem;
+            border-top: 1px solid rgba(196,169,110,0.15);
+            gap: 0.5rem;
+        }
+
+        .modal-nav-btn {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(196,169,110,0.3);
+            border-radius: 4px;
+            padding: 0.55rem 1rem;
+            font-family: 'Anton', sans-serif;
+            font-size: 0.85rem;
+            letter-spacing: 0.08em;
+            color: var(--sand);
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
+            transition: background 0.15s;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .modal-nav-btn:active  { background: rgba(196,169,110,0.15); }
+        .modal-nav-btn:disabled { opacity: 0.2; pointer-events: none; }
+        .modal-nav-btn.next    { justify-content: flex-end; }
+        .modal-nav-btn.prev    { justify-content: flex-start; }
+
+        .modal-nav-dots {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .modal-nav-dot {
+            width: 7px; height: 7px;
+            border-radius: 50%;
+            background: rgba(196,169,110,0.25);
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .modal-nav-dot.active {
+            background: var(--sand);
+            transform: scale(1.3);
         }
 
         /* ══════════════════════════════════════════════
@@ -1239,12 +1294,12 @@
                      src="https://i.imgur.com/J1b8QZi.jpeg"
                      alt="Yellowstone National Park" />
 
-                <!-- SVG route: D1(38,32) D2(62,46) D3(35,60) D4(60,74) D5(48,87) -->
+                <!-- SVG route: D1(38,38) D2(63,50) D3(34,63) D4(61,76) D5(48,89) -->
                 <svg class="map-route-svg" viewBox="0 0 100 100" preserveAspectRatio="none">
-                    <path d="M 38,32 C 46,37 56,42 62,46
-                             C 54,52 44,57 35,60
-                             C 42,66 52,70 60,74
-                             C 56,79 52,83 48,87"
+                    <path d="M 38,38 C 47,42 56,47 63,50
+                             C 54,55 43,59 34,63
+                             C 42,68 53,72 61,76
+                             C 56,81 52,85 48,89"
                           fill="none"
                           stroke="rgba(196,169,110,0.85)"
                           stroke-width="0.9"
@@ -1553,6 +1608,17 @@
             <div class="modal-close" onclick="closeModal()" aria-label="Close">×</div>
         </div>
         <div class="modal-content" id="modalContent"></div>
+        <div class="modal-nav">
+            <button class="modal-nav-btn prev" id="modalPrev" onclick="stepDay(-1)">← PREV</button>
+            <div class="modal-nav-dots" id="modalDots">
+                <div class="modal-nav-dot" onclick="openDay(1)"></div>
+                <div class="modal-nav-dot" onclick="openDay(2)"></div>
+                <div class="modal-nav-dot" onclick="openDay(3)"></div>
+                <div class="modal-nav-dot" onclick="openDay(4)"></div>
+                <div class="modal-nav-dot" onclick="openDay(5)"></div>
+            </div>
+            <button class="modal-nav-btn next" id="modalNext" onclick="stepDay(1)">NEXT →</button>
+        </div>
     </div>
 </div>
 
@@ -1752,7 +1818,11 @@ const dayData = {
     }
 };
 
+let currentDay = 1;
+const TOTAL_DAYS = 5;
+
 function openDay(n) {
+    currentDay = n;
     const d = dayData[n];
     document.getElementById('modalBadge').textContent = n;
     document.getElementById('modalTitle').textContent = d.title;
@@ -1760,8 +1830,26 @@ function openDay(n) {
         ? `<span class="badge-special">${d.badge}</span>` : '';
     document.getElementById('modalDate').textContent = d.date;
     document.getElementById('modalContent').innerHTML = d.content;
+    // Scroll content back to top when switching days
+    document.getElementById('modalContent').scrollTop = 0;
+    document.querySelector('.modal-card').scrollTop = 0;
+
+    // Prev / Next button state
+    document.getElementById('modalPrev').disabled = (n === 1);
+    document.getElementById('modalNext').disabled = (n === TOTAL_DAYS);
+
+    // Dots
+    document.querySelectorAll('.modal-nav-dot').forEach((dot, i) => {
+        dot.classList.toggle('active', i + 1 === n);
+    });
+
     document.getElementById('modalOverlay').classList.add('active');
     document.body.style.overflow = 'hidden';
+}
+
+function stepDay(dir) {
+    const next = currentDay + dir;
+    if (next >= 1 && next <= TOTAL_DAYS) openDay(next);
 }
 
 function closeModal() {
@@ -1769,7 +1857,21 @@ function closeModal() {
     document.body.style.overflow = '';
 }
 
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeModal(); closeNameSheet(); } });
+document.addEventListener('keydown', e => {
+    if (e.key === 'Escape')      { closeModal(); closeNameSheet(); }
+    if (e.key === 'ArrowRight')  { stepDay(1); }
+    if (e.key === 'ArrowLeft')   { stepDay(-1); }
+});
+
+// Swipe support on modal card
+let touchStartX = 0;
+document.getElementById('modalOverlay').addEventListener('touchstart', e => {
+    touchStartX = e.touches[0].clientX;
+}, { passive: true });
+document.getElementById('modalOverlay').addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - touchStartX;
+    if (Math.abs(dx) > 50) stepDay(dx < 0 ? 1 : -1);
+}, { passive: true });
 
 // ─── COUNTDOWN ────────────────────────────────────────
 function updateCountdown() {
